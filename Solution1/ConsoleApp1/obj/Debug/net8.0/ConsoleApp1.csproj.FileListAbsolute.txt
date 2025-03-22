@@ -12,3 +12,4 @@ C:\Users\PC\apbd_cw3\Solution1\ConsoleApp1\obj\Debug\net8.0\refint\ConsoleApp1.d
 C:\Users\PC\apbd_cw3\Solution1\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.pdb
 C:\Users\PC\apbd_cw3\Solution1\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.genruntimeconfig.cache
 C:\Users\PC\apbd_cw3\Solution1\ConsoleApp1\obj\Debug\net8.0\ref\ConsoleApp1.dll
+C:\Users\PC\apbd_cw3\Solution1\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.sourcelink.json
