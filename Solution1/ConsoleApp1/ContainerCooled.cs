@@ -8,15 +8,18 @@ public class ContainerCooled : Container
     protected int MaxLoad { get; set; }
     protected int LoadWeight { get; set; }
     protected string SerialNumber { get; set; }
+    protected string Product { get; set; }
     protected int Temperature { get; set; }
 
-    public ContainerCooled(int height, int depth, int netwieght, int maxload, int temperature) : base (height, depth, netwieght, maxload)
+    public ContainerCooled(int height, int depth, int netwieght, int maxload, string product, int temperature) : base (height, depth, netwieght, maxload)
     {
         Height = height;
         Depth = depth;
         NetWeight = netwieght;
         MaxLoad = maxload;
         LoadWeight = 0;
+        Product = product;
+        Temperature = temperature;
         SerialNumber = generateSerialNumber();
     }
     

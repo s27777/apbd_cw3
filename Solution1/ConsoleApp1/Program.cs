@@ -4,14 +4,18 @@
     {
         static void Main(string[] args)
         {
-            // dziedziczenie metody info
-            // coś nie tak z overfill exception
-            // ihazardnotifier
+            /*ContainerGas gas = new ContainerGas(1, 1, 200, 1000, 1);
+            gas.load(77);
+            gas.load(33);
+            gas.load(999);
+            Console.WriteLine(gas);
+            Console.WriteLine(gas.getLoadWeight() + " " + gas.getTotalWeight());*/
+            ContainerLiquid josh = new ContainerLiquid(1, 1, 1, 10000, true);
+            josh.load(11000);
+            Console.WriteLine(josh);
+            josh.info();
             
-            Console.WriteLine("initial");
-            
-            ContainerLiquid ll = new ContainerLiquid(1, 1, 1, 1000, false);
-            Console.WriteLine(ll);
+            Console.WriteLine("done");
         }
     }
 }

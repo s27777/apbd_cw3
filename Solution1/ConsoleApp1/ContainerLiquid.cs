@@ -49,24 +49,14 @@ public class ContainerLiquid : Container, IHazardNotifier
         }
     }
     
-    /*Exception OverfillException()
+    Exception OverfillException()
     {
+        String lkjh = "aberty";
         return new Exception();
-    }*/
+    }
     
-    /*public void info()
-    {
-        Console.WriteLine("Dane kontenera " + SerialNumber + ":");
-        Console.WriteLine("Masa ładunku: " + LoadWeight);
-        Console.WriteLine("Masa brutto: " + this.getTotalWeight());
-    }*/
     public void info()
     {
         base.info();
-    }
-
-    public int getTotalWeight()
-    {
-        return NetWeight + LoadWeight;
     }
 }

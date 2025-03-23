@@ -10,7 +10,6 @@ public class ContainerGas : Container, IHazardNotifier
     protected string SerialNumber { get; set; }
 
     protected float Pressure { get; set; }
-    //public int iterator { get; set; }
 
     public ContainerGas(int height, int depth, int netwieght, int maxload, float pressure) : base (height, depth, netwieght, maxload)
     {
@@ -56,13 +55,8 @@ public class ContainerGas : Container, IHazardNotifier
         return new Exception();
     }*/
 
-    public void info()
+    /*public void info()
     {
         base.info();
-    }
-
-    public int getTotalWeight()
-    {
-        return NetWeight + LoadWeight;
-    }
+    }*/
 }

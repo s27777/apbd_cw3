@@ -9,7 +9,7 @@ public abstract class Container
     protected int LoadWeight { get; set; }
     
     protected string SerialNumber { get; set; }
-    public int iterator { get; set; }
+    public static int iterator = 0;
 
     public Container(int height, int depth, int netwieght, int maxload)
     {
@@ -23,7 +23,8 @@ public abstract class Container
 
     public virtual string generateSerialNumber()
     {
-        return "";
+        iterator++;
+        return "abstract";
     }
 
     public virtual void empty()
@@ -59,6 +60,11 @@ public abstract class Container
         Console.WriteLine("Dane kontenera " + SerialNumber + ":");
         Console.WriteLine("Masa ładunku: " + LoadWeight);
         Console.WriteLine("Masa brutto: " + this.getTotalWeight());
+    }
+
+    public virtual int getLoadWeight()
+    {
+        return LoadWeight;
     }
 
     public virtual int getTotalWeight()
