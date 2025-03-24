@@ -30,33 +30,36 @@ public class ContainerGas : Container, IHazardNotifier
         return nr;
     }
     
-    public void empty() // todo zostawia 5 procent
+    public override void empty()
     {
         this.LoadWeight = (int)(LoadWeight * 0.05);
+        Console.WriteLine("Kontener " + SerialNumber + " Został Opróżniony. (5% ładunku pozostało)");
     }
 
-    public virtual void load(int l, IHazardNotifier ihn)
+    public override void load(int l, IHazardNotifier ihn)
     {
-        if (LoadWeight + l > MaxLoad)
+        try
         {
-            ihn.notify();
-            throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+            if (LoadWeight + l > MaxLoad)
+            {
+                ihn.notify();
+                throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+            }
+            else
+            {
+                LoadWeight += l;
+                Console.WriteLine("Załadowano kontener: " + SerialNumber);
+                Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+            }
         }
-        else
+        catch (OverfillException e)
         {
-            LoadWeight += l;
-            Console.WriteLine("Załadowano kontener: " + SerialNumber);
-            Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+            Console.WriteLine(e.Message);
         }
     }
 
-    /*Exception OverfillException()
+    public override void info()
     {
-        return new Exception();
-    }*/
-
-    /*public void info()
-    {
-        base.info();
-    }*/
+        Console.WriteLine();
+    }
 }

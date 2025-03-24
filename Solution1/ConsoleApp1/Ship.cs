@@ -7,9 +7,8 @@ public class Ship
     public List<Container> Containers = new List<Container>();
 
     protected int vMax { get; set; }
-    protected int MaxLoad { get; set; }
     protected string SerialNumber { get; set; }
-    protected int CurrentLoad { get; set; }
+    //protected int CurrentLoad { get; set; }
     protected int MaxContainersCount { get; set; }
     protected int MaxContainersWeight { get; set; }
     private static int iterator = 0;
@@ -17,9 +16,7 @@ public class Ship
     public Ship(int vmax, int maxload, int maxcontainerscount, int maxcontainersweight)
     {
         vMax = vmax;
-        MaxLoad = maxload;
-        SerialNumber = this.generateSerialNumber();
-        CurrentLoad = 0;
+        SerialNumber = generateSerialNumber();
         MaxContainersCount = maxcontainerscount;
         MaxContainersWeight = maxcontainersweight;
     }
@@ -32,36 +29,66 @@ public class Ship
 
     public void load(Container c)
     {
-        Containers.Add(c);
+        try
+        {
+            if (getTotalContainersWeight() + c.getTotalWeight() > MaxContainersWeight || Containers.Count + 1 > MaxContainersWeight)
+            {
+                throw new OverfillException();
+            }
+            else
+            {
+                Containers.Add(c);
+                Console.WriteLine("Kontener " + c + " został załatowany na statek " + SerialNumber);
+            }
+        }
+        catch (OverfillException e)
+        {
+            //e.Message();
+            Console.WriteLine("OverfillException (ship)");
+        }
     }
 
     public void loadFromList(List<Container> cl)
     {
         foreach (Container c in cl)
         {
-            Containers.Add(c);
+            load(c);
         }
     }
 
-    public void replace(string a, Container b)
+    /*public void replace(string a, Container b)
     {
         foreach (Container c in Containers)
         {
             if (c.ToString() == a)
             {
-                Containers.Remove(c);
+                remove(a);
                 Containers.Add(b);
+            }
+        }
+    }*/
+    
+    public void replace(string id, Container c)
+    {
+        for (int i = Containers.Count - 1; i >= 0; i--)
+        {
+            if (Containers[i].ToString() == id)
+            {
+                Containers.RemoveAt(i);
+                Containers.Add(c);
+                Console.WriteLine("Kontener " + id + " na statku " + SerialNumber + " został zastąpiony kontenerem " + c);
             }
         }
     }
 
     public void remove(string id)
     {
-        foreach (Container c in Containers)
+        for (int i = Containers.Count - 1; i >= 0; i--)
         {
-            if (c.ToString() == id)
+            if (Containers[i].ToString() == id)
             {
-                Containers.Remove(c);
+                Containers.RemoveAt(i);
+                Console.WriteLine("Kontener " + id + " został usunięty ze statku " + SerialNumber);
             }
         }
     }
@@ -69,16 +96,32 @@ public class Ship
     public void removeAll()
     {
         Containers.Clear();
+        Console.WriteLine("Statek " + SerialNumber + " został rozładowany");
     }
     
-    public static void moveToAnotherShip(Ship a, Ship b, string containerid)
+    /*public static void moveToAnotherShip(Ship a, Ship b, string containerid)
     {
         foreach (Container c in a.Containers)
         {
             if (c.ToString() == containerid)
             {
-                a.Containers.Remove(c);
+                a.remove(containerid);
                 b.Containers.Add(c);
+                Console.WriteLine("Kontener " + containerid + " przeniesiony z " + a + " do " + b);
+            }
+        }
+    }*/
+    
+    public static void moveToAnotherShipp(Ship a, Ship b, string id)
+    {
+        for (int i = a.Containers.Count - 1; i >= 0; i--)
+        {
+            if (a.Containers[i].ToString() == id)
+            {
+                a.Containers.RemoveAt(i);
+                Container c = a.Containers[i];
+                b.Containers.Add(c);
+                Console.WriteLine("Kontener " + id + " przeniesiony z " + a + " do " + b);
             }
         }
     }

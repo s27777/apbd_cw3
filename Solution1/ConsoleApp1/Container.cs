@@ -24,27 +24,60 @@ public abstract class Container
     public virtual string generateSerialNumber()
     {
         iterator++;
-        return "abstract";
+        return "virtual";
     }
 
     public virtual void empty()
     {
+        Console.WriteLine("base method triggered");
         NetWeight = 0;
         Console.WriteLine("Kontener " + SerialNumber + " Został Opróżniony.");
     }
-
+    
     public virtual void load(int l)
     {
-        if (LoadWeight + l > MaxLoad)
+        Console.WriteLine("base command triggered");
+        try
         {
-            //Console.WriteLine("Przeładowanie. Nie można załadować.");
-            throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+            if (LoadWeight + l > MaxLoad)
+                    {
+                        //Console.WriteLine("Przeładowanie. Nie można załadować.");
+                        throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+                    }
+                    else
+                    {
+                        LoadWeight += l;
+                        Console.WriteLine("Załadowano kontener: " + SerialNumber);
+                        Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+                    }
         }
-        else
+        catch (OverfillException e)
         {
-            LoadWeight += l;
-            Console.WriteLine("Załadowano kontener: " + SerialNumber);
-            Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+            Console.WriteLine(e.Message);
+        }
+        
+    }
+    
+    public virtual void load(int l, IHazardNotifier ihn)
+    {
+        Console.WriteLine("base command triggered");
+        try
+        {
+            if (LoadWeight + l > MaxLoad)
+            {
+                //Console.WriteLine("Przeładowanie. Nie można załadować.");
+                throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+            }
+            else
+            {
+                LoadWeight += l;
+                Console.WriteLine("Załadowano kontener: " + SerialNumber);
+                Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+            }
+        }
+        catch (OverfillException e)
+        {
+            Console.WriteLine(e.Message);
         }
         
     }

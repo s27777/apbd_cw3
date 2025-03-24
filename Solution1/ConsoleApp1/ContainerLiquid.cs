@@ -33,19 +33,26 @@ public class ContainerLiquid : Container, IHazardNotifier
     {
         base.empty();
     }
-
-    public void load(int l, IHazardNotifier ihn)
+    
+    public override void load(int l, IHazardNotifier ihn)
     {
-        if (Hazardous && LoadWeight > MaxLoad*0.5 || !Hazardous && LoadWeight > MaxLoad*0.9)
+        try
         {
-            ihn.notify();
-            throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+            if (Hazardous && LoadWeight > MaxLoad*0.5 || !Hazardous && LoadWeight > MaxLoad*0.9)
+                    {
+                        ihn.notify();
+                        throw new OverfillException("Maksymalna waga przekroczona. Nie można załadować.");
+                    }
+                    else
+                    {
+                        LoadWeight += l;
+                        Console.WriteLine("Załadowano kontener: " + SerialNumber);
+                        Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+                    }
         }
-        else
+        catch (OverfillException e)
         {
-            LoadWeight += l;
-            Console.WriteLine("Załadowano kontener: " + SerialNumber);
-            Console.WriteLine("Aktualna masa ładunku: " + LoadWeight);
+            Console.WriteLine(e.Message);
         }
     }
     
