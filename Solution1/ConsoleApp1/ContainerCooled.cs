@@ -27,7 +27,7 @@ public class ContainerCooled : Container
     {
         string nr = "";
         iterator++;
-        nr = "KON-G-" + iterator;
+        nr = "KON-C-" + iterator;
         return nr;
     }
 

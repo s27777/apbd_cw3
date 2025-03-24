@@ -2,20 +2,23 @@
 {
     class Program
     {
+        // do naprawy overfillexception
+        // limity ilości kontenerów i max wagi na statku
         static void Main(string[] args)
         {
-            /*ContainerGas gas = new ContainerGas(1, 1, 200, 1000, 1);
-            gas.load(77);
-            gas.load(33);
-            gas.load(999);
-            Console.WriteLine(gas);
-            Console.WriteLine(gas.getLoadWeight() + " " + gas.getTotalWeight());*/
-            ContainerLiquid josh = new ContainerLiquid(1, 1, 1, 10000, true);
-            josh.load(11000);
-            Console.WriteLine(josh);
-            josh.info();
+            ContainerLiquid cl = new ContainerLiquid(1, 1, 1, 1000, false);
+            ContainerCooled cc = new ContainerCooled(1, 1, 1, 1, "szambo", 1);
+            ContainerGas cg = new ContainerGas(1, 1, 1, 1,  1);
+
+            Ship sheep = new Ship(1, 1, 10, 10000);
             
-            Console.WriteLine("done");
+            sheep.load(cl);
+            sheep.load(cc);
+            sheep.load(cg);
+            
+            sheep.info();
+            Console.WriteLine("=============================");
+            sheep.showList();
         }
     }
 }

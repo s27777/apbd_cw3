@@ -10,16 +10,18 @@ public class Ship
     protected int MaxLoad { get; set; }
     protected string SerialNumber { get; set; }
     protected int CurrentLoad { get; set; }
-    protected int TotalContainersWeight { get; set; }
+    protected int MaxContainersCount { get; set; }
+    protected int MaxContainersWeight { get; set; }
     private static int iterator = 0;
 
-    public Ship(int vmax, int maxload, string serialnumber, int currentload, int totalcontainersweight)
+    public Ship(int vmax, int maxload, int maxcontainerscount, int maxcontainersweight)
     {
         vMax = vmax;
         MaxLoad = maxload;
-        SerialNumber = serialnumber;
-        CurrentLoad = currentload;
-        TotalContainersWeight = totalcontainersweight;
+        SerialNumber = this.generateSerialNumber();
+        CurrentLoad = 0;
+        MaxContainersCount = maxcontainerscount;
+        MaxContainersWeight = maxcontainersweight;
     }
 
     public string generateSerialNumber()
@@ -31,7 +33,6 @@ public class Ship
     public void load(Container c)
     {
         Containers.Add(c);
-        
     }
 
     public void loadFromList(List<Container> cl)
@@ -65,6 +66,11 @@ public class Ship
         }
     }
 
+    public void removeAll()
+    {
+        Containers.Clear();
+    }
+    
     public static void moveToAnotherShip(Ship a, Ship b, string containerid)
     {
         foreach (Container c in a.Containers)
@@ -77,7 +83,7 @@ public class Ship
         }
     }
 
-    public int getNumberOfContainersLoaded()
+    public int getTotalContainersWeight()
     {
         int result = 0;
         foreach (Container c in Containers)
@@ -89,18 +95,20 @@ public class Ship
 
     public void showList()
     {
+        Console.WriteLine("Lista kontenerów dla " + SerialNumber + ":");
         foreach (Container c in Containers)
         {
-            Console.WriteLine();
+            Console.WriteLine(c);
         }
     }
     
     public virtual void info()
     {
         Console.WriteLine("Dane kontenera " + SerialNumber + ":");
-        Console.WriteLine("Załadowane kontenery: " + Containers.Count);
-        //Console.WriteLine("Masa ładunku: " + LoadWeight);
-        //Console.WriteLine("Masa brutto: " + this.getTotalWeight());
+        Console.WriteLine("Prędkość maksymalna: " + vMax);
+        Console.WriteLine("Załadowane kontenery: " + Containers.Count + "/" + MaxContainersCount);
+        Console.WriteLine("Łączna waga kontenerów: " + getTotalContainersWeight() + "/" + MaxContainersWeight);
+        
     }
 
     public override string ToString()
